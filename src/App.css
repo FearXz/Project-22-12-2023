@@ -105,3 +105,10 @@
 .carousel-inner:has(img:hover) img:not(:hover) {
   opacity: 0.1;
 }
+.carousel .row div {
+  max-height: 330px !important;
+}
+.carousel .row div img {
+  object-fit: cover !important;
+  height: 330px;
+}
