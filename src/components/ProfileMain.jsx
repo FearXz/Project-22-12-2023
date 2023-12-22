@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import avatar from "../assets/avatar.png";
 function ProfileMain() {
   return (
-    <main class="mb-5 vh-100">
+    <main className="mb-5 vh-100">
       <Container className="d-flex justify-content-center">
         <Row className="w-100 justify-content-center">
           <Col xs={12} md={10} lg={8} xl={6}>
