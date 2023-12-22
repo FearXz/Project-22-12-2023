@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap";
 
 const Error = ({ color, error }) => (
   <Alert variant={color}>
-    <p>{error}</p>
+    <p className="fs-1">{error}</p>
   </Alert>
 );
 
