@@ -4,7 +4,7 @@ import netflix_logo from "../assets/netflix_logo.png";
 
 function ProfileHeader(props) {
   return (
-    <header class="mb-5">
+    <header className="mb-5">
       <Container fluid className="bg-custom1">
         <a href="#" onClick={() => props.callbackDetailPage("main")}>
           <img className="logo-profile" src={netflix_logo} alt="" />
