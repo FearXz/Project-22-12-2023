@@ -43,7 +43,7 @@ const Gallery = (props) => {
             <Row className="gx-1">
               {movieGroup.map((movie, index) => (
                 <Poster
-                  key={"poster-" + groupIndex * 6 + index}
+                  key={"poster-" + groupIndex + "-" + index}
                   responsive={
                     index < 3
                       ? "col-4 col-md-3 col-xl-2"
