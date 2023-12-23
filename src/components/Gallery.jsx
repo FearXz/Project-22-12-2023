@@ -1,8 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Carousel, Button } from "react-bootstrap";
 import Poster from "./Poster";
 
 const Gallery = (props) => {
+  const [movieGroups, setMovieGroups] = useState([]);
+
+  useEffect(() => {
+    const dividedMovies = [];
+    for (let i = 0; i < props.movieList.length; i += 6) {
+      dividedMovies.push(props.movieList.slice(i, i + 6));
+    }
+    setMovieGroups(dividedMovies);
+  }, [props.movieList]);
+
   useEffect(() => {
     const innerCarousel = document.querySelectorAll(".carousel-inner");
     if (innerCarousel) {
@@ -28,56 +38,25 @@ const Gallery = (props) => {
     <Container id={props.id} className="mb-5">
       <h3 className="text-white">{props.title}</h3>
       <Carousel id="carouselExample" className="slide" indicators={false} interval={null}>
-        <Carousel.Item>
-          <Row className="gx-1">
-            {props.movieList && props.movieList.length > 0 && (
-              <>
-                {props.movieList.slice(0, 6).map((movie, index) => (
-                  <>
-                    {index < 3 && (
-                      <Poster responsive="col-4 col-md-3 col-xl-2" key={props.id + index} poster={movie.Poster} />
-                    )}
-                    {index == 3 && (
-                      <Poster
-                        responsive="d-none d-md-block col-md-3 col-xl-2"
-                        key={props.id + index}
-                        poster={movie.Poster}
-                      />
-                    )}
-                    {index > 3 && (
-                      <Poster responsive="d-none d-xl-block col-xl-2" key={props.id + index} poster={movie.Poster} />
-                    )}
-                  </>
-                ))}
-              </>
-            )}
-          </Row>
-        </Carousel.Item>
-        <Carousel.Item>
-          <Row className="gx-1">
-            {props.movieList && props.movieList.length > 0 && (
-              <>
-                {props.movieList.slice(3, 9).map((movie, index) => (
-                  <>
-                    {index < 3 && (
-                      <Poster responsive="col-4 col-md-3 col-xl-2" key={props.id + index} poster={movie.Poster} />
-                    )}
-                    {index == 3 && (
-                      <Poster
-                        responsive="d-none d-md-block col-md-3 col-xl-2"
-                        key={props.id + index}
-                        poster={movie.Poster}
-                      />
-                    )}
-                    {index > 3 && (
-                      <Poster responsive="d-none d-xl-block col-xl-2" key={props.id + index} poster={movie.Poster} />
-                    )}
-                  </>
-                ))}
-              </>
-            )}
-          </Row>
-        </Carousel.Item>
+        {movieGroups.map((movieGroup, groupIndex) => (
+          <Carousel.Item key={"carouselItem-" + groupIndex}>
+            <Row className="gx-1">
+              {movieGroup.map((movie, index) => (
+                <Poster
+                  key={"poster-" + groupIndex * 6 + index}
+                  responsive={
+                    index < 3
+                      ? "col-4 col-md-3 col-xl-2"
+                      : index === 3
+                      ? "d-none d-md-block col-md-3 col-xl-2"
+                      : "d-none d-xl-block col-xl-2"
+                  }
+                  poster={movie.Poster}
+                />
+              ))}
+            </Row>
+          </Carousel.Item>
+        ))}
       </Carousel>
     </Container>
   );
