@@ -33,7 +33,21 @@ const Gallery = (props) => {
             {props.movieList && props.movieList.length > 0 && (
               <>
                 {props.movieList.slice(0, 6).map((movie, index) => (
-                  <Poster key={props.id + index} poster={movie.Poster} />
+                  <>
+                    {index < 3 && (
+                      <Poster responsive="col-4 col-md-3 col-xl-2" key={props.id + index} poster={movie.Poster} />
+                    )}
+                    {index == 3 && (
+                      <Poster
+                        responsive="d-none d-md-block col-md-3 col-xl-2"
+                        key={props.id + index}
+                        poster={movie.Poster}
+                      />
+                    )}
+                    {index > 3 && (
+                      <Poster responsive="d-none d-xl-block col-xl-2" key={props.id + index} poster={movie.Poster} />
+                    )}
+                  </>
                 ))}
               </>
             )}
@@ -44,7 +58,21 @@ const Gallery = (props) => {
             {props.movieList && props.movieList.length > 0 && (
               <>
                 {props.movieList.slice(3, 9).map((movie, index) => (
-                  <Poster key={props.id + index} poster={movie.Poster} />
+                  <>
+                    {index < 3 && (
+                      <Poster responsive="col-4 col-md-3 col-xl-2" key={props.id + index} poster={movie.Poster} />
+                    )}
+                    {index == 3 && (
+                      <Poster
+                        responsive="d-none d-md-block col-md-3 col-xl-2"
+                        key={props.id + index}
+                        poster={movie.Poster}
+                      />
+                    )}
+                    {index > 3 && (
+                      <Poster responsive="d-none d-xl-block col-xl-2" key={props.id + index} poster={movie.Poster} />
+                    )}
+                  </>
                 ))}
               </>
             )}
