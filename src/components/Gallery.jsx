@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Carousel, Button } from "react-bootstrap";
+import { Container, Row, Carousel } from "react-bootstrap";
+import { useMediaQuery } from "react-responsive";
 import Poster from "./Poster";
 
-const Gallery = (props) => {
-  const [movieGroups, setMovieGroups] = useState([]);
-
-  useEffect(() => {
-    const dividedMovies = [];
-    for (let i = 0; i < props.movieList.length; i += 6) {
-      dividedMovies.push(props.movieList.slice(i, i + 6));
-    }
-    setMovieGroups(dividedMovies);
-  }, [props.movieList]);
-
+const Gallery = ({ movieList, id, title }) => {
   useEffect(() => {
     const innerCarousel = document.querySelectorAll(".carousel-inner");
     if (innerCarousel) {
@@ -34,23 +25,58 @@ const Gallery = (props) => {
     });
   }, []);
 
+  const isSm = useMediaQuery({ maxWidth: 767 });
+  const isMd = useMediaQuery({ minWidth: 768, maxWidth: 1199 });
+  const isXl = useMediaQuery({ minWidth: 1200 });
+  const [maxSliderItem, setMaxSliderItem] = useState(3);
+  const [movieMatrix, setMoviesMatrix] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleSelect = (selectedIndex) => {
+    setActiveIndex(selectedIndex);
+  };
+
+  useEffect(() => {
+    if (isXl) setMaxSliderItem(6);
+    else if (isMd) setMaxSliderItem(4);
+    else if (isSm) setMaxSliderItem(3);
+  }, [isSm, isMd, isXl]);
+
+  useEffect(() => {
+    const matrix = [];
+    for (let i = 0; i < movieList.length; i += maxSliderItem) {
+      matrix.push(movieList.slice(i, i + maxSliderItem));
+    }
+    setMoviesMatrix((prevMatrix) => {
+      if (activeIndex == movieMatrix.length - 1) {
+        if (prevMatrix.length > matrix.length) {
+          setActiveIndex(0);
+        } else {
+          setActiveIndex(matrix.length - 1);
+        }
+      }
+      return matrix;
+    });
+  }, [movieList, maxSliderItem]);
+
   return (
-    <Container id={props.id} className="mb-5">
-      <h3 className="text-white">{props.title}</h3>
-      <Carousel id="carouselExample" className="slide" indicators={false} interval={null}>
-        {movieGroups.map((movieGroup, groupIndex) => (
+    <Container id={id} className="mb-5">
+      <h3 className="text-white">{title}</h3>
+      <Carousel
+        id="carouselExample"
+        className="slide"
+        indicators={false}
+        interval={null}
+        activeIndex={activeIndex}
+        onSelect={handleSelect}
+      >
+        {movieMatrix.map((movieGroup, groupIndex) => (
           <Carousel.Item key={"carouselItem-" + groupIndex}>
             <Row className="gx-1">
               {movieGroup.map((movie, index) => (
                 <Poster
                   key={"poster-" + groupIndex + "-" + index}
-                  responsive={
-                    index < 3
-                      ? "col-4 col-md-3 col-xl-2"
-                      : index === 3
-                      ? "d-none d-md-block col-md-3 col-xl-2"
-                      : "d-none d-xl-block col-xl-2"
-                  }
+                  responsive={isSm ? "col-4" : isMd ? "col-4 col-md-3" : isXl ? "col-4 col-md-3 col-xl-2" : "kebab"}
                   poster={movie.Poster}
                 />
               ))}
