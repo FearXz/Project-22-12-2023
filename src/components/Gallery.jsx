@@ -62,18 +62,15 @@ const Gallery = ({ movieList, id, title }) => {
     for (let i = 0; i < movieList.length; i += maxSliderItem) {
       matrix.push(movieList.slice(i, i + maxSliderItem));
     }
-    setMoviesMatrix((prevMatrix) => {
-      fixAutoAnimation();
-      if (activeIndex == movieMatrix.length - 1) {
-        if (prevMatrix.length > matrix.length) {
-          setActiveIndex(0);
-        } else {
-          setActiveIndex(matrix.length - 1);
-        }
-      }
-      return matrix;
-    });
+    setMoviesMatrix(matrix);
+    fixAutoAnimation();
   }, [movieList, maxSliderItem]);
+
+  useEffect(() => {
+    if (activeIndex == movieMatrix.length) {
+      setActiveIndex(0);
+    }
+  }, [movieMatrix]);
 
   return (
     <Container id={id} className="mb-5">
