@@ -5,6 +5,10 @@ import Poster from "./Poster";
 
 const Gallery = ({ movieList, id, title }) => {
   useEffect(() => {
+    fixClickAnimation();
+  }, []);
+
+  function fixClickAnimation() {
     const innerCarousel = document.querySelectorAll(".carousel-inner");
     if (innerCarousel) {
       innerCarousel.forEach((carousel) => {
@@ -23,7 +27,18 @@ const Gallery = ({ movieList, id, title }) => {
         }, 650);
       });
     });
-  }, []);
+  }
+  function fixAutoAnimation() {
+    let inners = document.querySelectorAll(".carousel-inner");
+    inners.forEach((inner) => {
+      inner.classList.add("overflow-hidden");
+      inner.classList.remove("overflow-visible");
+      setTimeout(function () {
+        inner.classList.add("overflow-visible");
+        inner.classList.remove("overflow-hidden");
+      }, 650);
+    });
+  }
 
   const isSm = useMediaQuery({ maxWidth: 767 });
   const isMd = useMediaQuery({ minWidth: 768, maxWidth: 1199 });
@@ -48,6 +63,7 @@ const Gallery = ({ movieList, id, title }) => {
       matrix.push(movieList.slice(i, i + maxSliderItem));
     }
     setMoviesMatrix((prevMatrix) => {
+      fixAutoAnimation();
       if (activeIndex == movieMatrix.length - 1) {
         if (prevMatrix.length > matrix.length) {
           setActiveIndex(0);
