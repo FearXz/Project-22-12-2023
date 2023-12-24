@@ -55,18 +55,20 @@ function ProfileMain() {
                       <p className="fs-5 text-body-secondary">Autoplay controls</p>
                     </div>
                     <div id="check-container">
-                      <Form.Check
-                        type="checkbox"
-                        id="checkbox1"
-                        label="Autoplay next episode in a series on all devices."
-                        className="fs-7 text-light"
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        id="checkbox2"
-                        label="Autoplay preview while browsing on all devices."
-                        className="fs-7 text-light"
-                      />
+                      <label class="checkbox-wrapper d-flex align-items-center">
+                        <div>
+                          <input id="checkbox1" type="checkbox" />
+                          <span class="checkmark"></span>
+                        </div>
+                        <p className="fs-7 text-light">Autoplay next episode in a series on all devices.</p>
+                      </label>
+                      <label class="checkbox-wrapper d-flex align-items-center">
+                        <div>
+                          <input id="checkbox2" type="checkbox" />
+                          <span class="checkmark"></span>
+                        </div>
+                        <p className="fs-7 text-light">Autoplay preview while browsing on all devices.</p>
+                      </label>
                     </div>
                   </Col>
                 </Row>
