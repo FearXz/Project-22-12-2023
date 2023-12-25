@@ -15,13 +15,15 @@ const Gallery = ({ movieList, id, title }) => {
         carousel.classList.add("overflow-visible");
       });
     }
+    let timeout;
     let buttons = document.querySelectorAll(".carousel a[role=button]");
     buttons.forEach((button) => {
       button.addEventListener("click", (event) => {
         let inner = event.currentTarget.closest(".carousel").querySelector(".carousel-inner");
         inner.classList.add("overflow-hidden");
         inner.classList.remove("overflow-visible");
-        setTimeout(function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
           inner.classList.add("overflow-visible");
           inner.classList.remove("overflow-hidden");
         }, 650);
