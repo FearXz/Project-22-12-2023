@@ -83,12 +83,12 @@ const Gallery = ({ movieList, id, title }) => {
         activeIndex={activeIndex}
         onSelect={handleSelect}
       >
-        {movieMatrix.map((movieGroup, groupIndex) => (
-          <Carousel.Item key={"carouselItem-" + groupIndex}>
+        {movieMatrix.map((moviesArray, arrayIndex) => (
+          <Carousel.Item key={"carouselItem-" + arrayIndex}>
             <Row className="gx-1">
-              {movieGroup.map((movie, index) => (
+              {moviesArray.map((movie, index) => (
                 <Poster
-                  key={"poster-" + groupIndex + "-" + index}
+                  key={"poster-" + arrayIndex + "-" + index}
                   responsive={isSm ? "col-4" : isMd ? "col-4 col-md-3" : isXl ? "col-4 col-md-3 col-xl-2" : "kebab"}
                   poster={movie.Poster}
                 />
