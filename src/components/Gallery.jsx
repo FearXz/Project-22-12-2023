@@ -63,11 +63,11 @@ const Gallery = ({ movieList, id, title }) => {
       matrix.push(movieList.slice(i, i + maxSliderItem));
     }
     setMoviesMatrix(matrix);
-    fixAutoAnimation();
   }, [movieList, maxSliderItem]);
 
   useEffect(() => {
     if (activeIndex == movieMatrix.length) {
+      fixAutoAnimation();
       setActiveIndex(0);
     }
   }, [movieMatrix]);
